@@ -111,6 +111,47 @@
               </p>
             </a>
           </li>
+          <li class="nav-header">Masters</li>
+          <li class="nav-item">
+            <a href="countries/list.php" class="nav-link">
+              <i class="nav-icon far fa-image"></i>
+              <p>
+                Countries
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="templates/list.php" class="nav-link">
+              <i class="nav-icon far fa-image"></i>
+              <p>
+                Email Templates
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="states/list.php" class="nav-link">
+              <i class="nav-icon far fa-image"></i>
+              <p>
+                States
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="countries/list.php" class="nav-link">
+              <i class="nav-icon far fa-image"></i>
+              <p>
+                Technologies
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="countries/list.php" class="nav-link">
+              <i class="nav-icon far fa-image"></i>
+              <p>
+                Cities
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

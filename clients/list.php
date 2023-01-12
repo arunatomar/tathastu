@@ -88,7 +88,7 @@ $clients  = $conn->query($sql);
                           Phone
                       </th>
                       <th style="width: 20%">
-                          Team
+                         profile_pic
                       </th>
                       <th style="width: 8%" class="text-center">
                           Status
@@ -116,22 +116,12 @@ $clients  = $conn->query($sql);
                       <td>
                           <?php echo $client['phone'];?>
                       </td>
-                      <td>
-                          <ul class="list-inline">
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="<?php echo $APP_URL;?>assets/dist/img/avatar.png">
-                              </li>
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="<?php echo $APP_URL;?>assets/dist/img/avatar2.png">
-                              </li>
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="<?php echo $APP_URL;?>assets/dist/img/avatar3.png">
-                              </li>
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="<?php echo $APP_URL;?>assets/dist/img/avatar4.png">
-                              </li>
-                          </ul>
-                      </td>
+                      
+                      
+                      <td> <img height="80" src="<?php echo $client['profile_pic'];?>" alt="Not found"> </td>
+                    
+                          
+                      
                       <td class="project-state">
                           <span class="badge badge-success">Success</span>
                       </td>
