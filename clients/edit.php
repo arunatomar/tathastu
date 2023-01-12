@@ -28,6 +28,7 @@ $skype_id = $client['skype_id'];
 $address = $client['address'];
 $city = $client['city'];
 $notes = $client['notes'];
+$profile_pic = $client['profile_pic'];
 $success_msg = $error_msg = "";
 ?>
 <!DOCTYPE html>
@@ -47,7 +48,13 @@ $success_msg = $error_msg = "";
 <body class="hold-transition sidebar-mini">
 
 <?php
+
+$target_dir = "../uploads/";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
     $name = test_input($_POST["name"]);
     $phone = test_input($_POST["phone"]);
     $country_id = test_input($_POST["country"]);
@@ -56,7 +63,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $address = test_input($_POST["address"]);
     $city = test_input($_POST["city"]);
     $notes = test_input($_POST["notes"]);
-    $sql = "Update clients set name='$name' , phone='$phone', country_id='$country_id', gender='$gender', skype_id='$skype_id', address='$address', city='$city', notes='$notes' where id={$id}";
+
+    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+    if($check !== false) {
+      echo "File is an image - " . $check["mime"] . ".";
+      $uploadOk = 1;
+    } else {
+    echo "File is not an image.";
+    $uploadOk = 0;
+  }
+  if (file_exists($target_file)) {
+    echo "Sorry, file already exists.";
+    $uploadOk = 0;
+  }
+
+  if ($_FILES["fileToUpload"]["size"] > 5000000) {
+    echo "Sorry, your file is too large.";
+    $uploadOk = 0;
+  }
+
+  if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    $uploadOk = 0;
+  }
+
+  if ($uploadOk == 0) {
+    echo "Sorry, your file was not uploaded.";
+  } else {
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+      $profile_pic_msg = "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+    } else {
+      $profile_pic_msg = "Sorry, there was an error uploading your file.";
+    }
+  }
+
+    $sql = "Update clients set name='$name' , phone='$phone', country_id='$country_id', gender='$gender', skype_id='$skype_id', address='$address', city='$city', notes='$notes', profile_pic='$target_file'  where id={$id}";
 
     if ($conn->query($sql) === TRUE) {
       $success_msg = "Client has beed updated successfully";
@@ -125,7 +166,7 @@ function test_input($data) {
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?client_id='.$id;?>" class="form-horizontal">
+              <form method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?client_id='.$id;?>" class="form-horizontal">
               <input type="hidden" name="id" id="client_id" value="<?php echo $id;?>" >
                 <div class="card-body">
                   <div class="form-group row">
@@ -189,7 +230,8 @@ function test_input($data) {
                   <div class="form-group row">
                     <label for="inputPassword3" class="col-sm-2 col-form-label">Profile Picture</label>
                     <div class="col-sm-10">
-                        <input type="file" class="form-control" id="profile_pic" name="profile_pic">
+                        <img height="60" src="<?php echo $profile_pic;?>" alt="Not found">
+                        <input type="file" class="form-control" id="fileToUpload" name="fileToUpload">
                     </div>
                   </div>
                   <div class="form-group row">

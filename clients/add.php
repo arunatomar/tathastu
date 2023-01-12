@@ -32,7 +32,7 @@ $countries_result = $conn->query($sql);
 <body class="hold-transition sidebar-mini">
 
 <?php $name = $email = $phone = $country_id = $gender = $skype_id = $address = $city = $notes = $success_msg = $error_msg = "";
-$target_dir = "uploads/";
+$target_dir = "../uploads/";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -76,14 +76,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Sorry, your file was not uploaded.";
   } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-      echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+      $profile_pic_msg = "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
     } else {
-      echo "Sorry, there was an error uploading your file.";
+      $profile_pic_msg = "Sorry, there was an error uploading your file.";
     }
   }
 
 
-    $sql = "INSERT INTO clients (name , email, phone, country_id, gender, skype_id, address, city, notes) VALUES ('$name', '$email', '$phone', '$country_id', '$gender', '$skype_id', '$address', '$city', '$notes')";
+    $sql = "INSERT INTO clients (name , email, phone, country_id, gender, skype_id, address, city, notes, profile_pic) VALUES ('$name', '$email', '$phone', '$country_id', '$gender', '$skype_id', '$address', '$city', '$notes', '$target_file')";
 
     if ($conn->query($sql) === TRUE) {
       $success_msg = "New client added successfully";
@@ -214,7 +214,7 @@ function test_input($data) {
                   <div class="form-group row">
                     <label for="inputPassword3" class="col-sm-2 col-form-label">Address</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" value="<?php echo $address;?>" id="address" placeholder="Adress" name="address">
+                        <input type="text" class="form-control" value="<?php echo $address;?>" id="address" placeholder="Address" name="address">
                     </div>
                   </div>
                   <div class="form-group row">

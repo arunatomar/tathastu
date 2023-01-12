@@ -93,7 +93,7 @@ $client = $result->fetch_assoc();
                       <td> <?php echo $client['phone'];?> </td>
                     </tr>
                     <tr>
-                      <th>SKype ID</th>
+                      <th>Skype ID</th>
                       <td><?php echo $client['skype_id'];?> </td>
                     </tr>
                     <tr>
@@ -114,7 +114,7 @@ $client = $result->fetch_assoc();
                     </tr>
                     <tr>
                       <th>Profile Picture</th>
-                      <td> Not Available </td>
+                      <td> <img height="80" src="<?php echo $client['profile_pic'];?>" alt="Not found"> </td>
                     </tr>
                     <tr>
                       <th>Notes</th>
